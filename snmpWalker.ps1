@@ -86,7 +86,7 @@ do {
         
     #Compare $answer to the following cases and execute the associated command.
     switch -Regex ( $answer ) {
-    "1" {invoke-snmpwalk -IP 172.16.144.125 -Oid $oidManufacturer | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
+    "1" {invoke-snmpwalk -IP $IP -Oid $oidManufacturer | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
     "2" {invoke-snmpwalk -IP $IP -Oid $oidModel | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
     "3" {invoke-snmpwalk -IP $IP -Oid $oidSerial | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
     "4" {invoke-snmpwalk -IP $IP -Oid $oidSerial | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
