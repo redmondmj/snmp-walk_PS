@@ -4,8 +4,9 @@ $oidModel = "1.3.6.1.4.1.1347.43.5.1.1.36"
 $oidSerial = "1.3.6.1.4.1.1347.43.5.1.1.28"
 $oidName = "1.3.6.1.4.1.1347.40.10.1.1.5"
 $oidToner = "1.3.6.1.2.1.43.11.1.1.9.1"
-$oidLocation = ""
-$oidPageCount = "1.3.6.1.4.1.1347.43.10.1.1"
+$oidLocation = "1.3.6.1.2.1.1.6"
+$oidPageCount = "1.3.6.1.4.1.1347.43.10.1.1.12.1"
+$oidError = 
 
 do { #Input validation for IP
     Clear-Host
@@ -53,9 +54,7 @@ do {
         write-host "5 - Printer Location"
         write-host "6 - Toner Level"
         write-host "7 - Page Count"
-        write-host ""
         write-host "8 - Errors"
-        write-host ""
         write-host "9 - Exit"
 
         write-host ""
@@ -80,7 +79,7 @@ do {
     "5" {invoke-snmpwalk -IP $IP -OID $oidLocation | Out-File -FilePath "C:\Users\ryan_\Desktop\PrinterData-$IP.txt" -Append}
     "6" {invoke-snmpwalk -IP $IP -OID $oidToner | Out-File -FilePath "C:\Users\ryan_\Desktop\PrinterData-$IP.txt" -Append}
     "7" {invoke-snmpwalk -IP $IP -OID $oidPageCount | Out-File -FilePath "C:\Users\ryan_\Desktop\PrinterData-$IP.txt" -Append}
-    "8" {write-output "HUH? Does not compute... Coming Soon" | Out-File -FilePath "C:\Users\ryan_\Desktop\PrinterData-$IP.txt" -Append}
+    "8" {invoke-snmpwalk -IP $IP -OID $oidError | Out-File -FilePath "C:\Users\ryan_\Desktop\PrinterData-$IP.txt" -Append}
     } #finished executing menu options
 
 } until ($answer -eq 9) #User selected option 9 to exit.
