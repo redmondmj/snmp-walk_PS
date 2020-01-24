@@ -78,10 +78,9 @@ do {
     "4" {invoke-snmpwalk -IP $IP -OID $oidSerial | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
     "5" {invoke-snmpwalk -IP $IP -OID $oidName | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
     "6" {invoke-snmpwalk -IP $IP -OID $oidName | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
-    "7" {write-output "Huh? What's a page count? Coming Soon" | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
-    "8" {write-output "HUH? Does not compute... Coming Soon" | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
+    "7" {invoke-snmpwalk -IP $IP -OID $oidName | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
+    "8" {invoke-snmpwalk -IP $IP -OID $oidName | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
     } #finished executing menu options
 
 } until ($answer -eq 9) #User selected option 9 to exit.
        
-    Install-Module -Name Proxx.SNMP 
