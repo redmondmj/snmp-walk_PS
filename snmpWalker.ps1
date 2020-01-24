@@ -5,7 +5,7 @@ $oidSerial = "1.3.6.1.4.1.1347.43.5.1.1.28"
 $oidName = "1.3.6.1.4.1.1347.40.10.1.1.5"
 $oidToner = "1.3.6.1.2.1.43.11.1.1.9.1"
 $oidLocation = ""
-$oidPageCount = ""
+$oidPageCount = "1.3.6.1.4.1.1347.43.10.1.1"
 
 do { #Input validation for IP
     Clear-Host
