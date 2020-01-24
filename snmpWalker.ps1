@@ -6,7 +6,8 @@ $oidName = "1.3.6.1.4.1.1347.40.10.1.1.5"
 $oidToner = "1.3.6.1.2.1.43.11.1.1.9.1"
 $oidLocation = "1.3.6.1.2.1.1.6"
 $oidPageCount = "1.3.6.1.4.1.1347.43.10.1.1.12.1"
-$oidError = 
+#$oidError = 
+
 
 do { #Input validation for IP
     Clear-Host
