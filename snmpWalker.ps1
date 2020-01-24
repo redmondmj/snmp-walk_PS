@@ -7,7 +7,7 @@ $oidName = "1.3.6.1.4.1.1347.40.10.1.1.5"
 
 
 do { #Input validation for IP
-    cls
+    Clear-Host
     #draw header
     write-host ""
     write-host "********************************"
