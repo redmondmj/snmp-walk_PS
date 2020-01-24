@@ -6,7 +6,7 @@ function tonerLevel {
     param (
         $oidToner
     )
-    $toner = Get-SnmpData -IP $ip -OID $oidToner
+    $toner = Get-SnmpData -IP $ip -OID $oidToner #note Get-snmpData requires SNMP module try running - Install-Module -Name SNMP
     $tonerData = $toner."Data"
     $tonerLevel = 100 * $tonerData/20000
     return $tonerLevel
