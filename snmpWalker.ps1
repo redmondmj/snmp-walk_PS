@@ -8,19 +8,6 @@ $oidName = "1.3.6.1.4.1.1347.40.10.1.1.5"
 # need to find this
 # $oidpagecount = ""
 
-param([string]$ip="172.16.144.125")
-
-
-function tonerLevel {
-    param (
-        $oidToner
-    )
-    $toner = Get-SnmpData -IP $ip -Oid $oidToner
-    $tonerData = $toner."Data"
-    $tonerLevel = 100 * $tonerData/20000
-    return $tonerLevel
-}
-
 do { #Input validation for IP
     Clear-Host
     #draw header

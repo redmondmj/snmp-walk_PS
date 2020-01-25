@@ -1,6 +1,7 @@
+# The term 'Get-SnmpData' is not recognized as the name of a cmdlet, function, script file, or operable program.
 param([string]$ip="172.16.144.125")
 
-$oidToner = "1.3.6.1.2.1.43.11.1.1.9.1.1"
+$oidToner = "1.3.6.1.2.1.43.11.1.1.9.1"
 
 function tonerLevel {
     param (
