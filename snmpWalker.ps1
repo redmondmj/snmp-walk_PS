@@ -3,8 +3,10 @@ $oidManufacturer = "1.3.6.1.2.1.1.1"
 $oidModel = "1.3.6.1.4.1.1347.43.5.1.1.36"
 $oidSerial = "1.3.6.1.4.1.1347.43.5.1.1.28"
 $oidName = "1.3.6.1.4.1.1347.40.10.1.1.5"
-$oidToner = "1.3.6.1.2.1.43.11.1.1.9.1.1"
-$oidpagecount = ""
+# does not return usefull value
+# $oidToner = "1.3.6.1.2.1.43.11.1.1.9.1.1"
+# need to find this
+# $oidpagecount = ""
 
 param([string]$ip="172.16.144.125")
 
@@ -29,7 +31,6 @@ do { #Input validation for IP
     write-host "**   SNSMP Package Required   **"
     write-host "**       Try Proxx SNMP       **"
     write-host "********************************"
-    
     write-host ""
     #get input from user
     $IP = read-host "Enter IP"
@@ -51,25 +52,25 @@ do {
     #show snmp menu
     do {
         Clear-Host
+
         #draw header
         write-host ""
         write-host "******************************"
         write-host "**       SNMP Walker        **"
         write-host "******************************"
         write-host ""
-
         write-host "1 - Printer Manufacturer"
         write-host "2 - Printer Model"
         write-host "3 - Printer Serial"
         write-host "4 - Printer Name"
-        write-host "5 - Toner Level"
-        write-host "6 - Page Count"
+        # write-host "5 - Toner Level"
+        # write-host "6 - Page Count"
         write-host ""
-        write-host "8 - Errors"
+        # write-host "8 - Errors"
         write-host ""
         write-host "9 - Exit"
-
         write-host ""
+
         #get input from user
         $answer = read-host "Choose all data you would like to collect"
 
@@ -87,11 +88,10 @@ do {
     "1" {invoke-snmpwalk -IP $IP -Oid $oidManufacturer | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
     "2" {invoke-snmpwalk -IP $IP -Oid $oidModel | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
     "3" {invoke-snmpwalk -IP $IP -Oid $oidSerial | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
-    "4" {invoke-snmpwalk -IP $IP -Oid $oidSerial | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
-    "5" {invoke-snmpwalk -IP $IP -Oid $oidName | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
-    "6" {invoke-snmpwalk -IP $IP -Oid $oidName | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
-    "7" {invoke-snmpwalk -IP $IP -Oid  | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
-    "8" {write-output "HUH? Does not compute... Coming Soon" | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
+    "4" {invoke-snmpwalk -IP $IP -Oid $oidName | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
+    # "5" {invoke-snmpwalk -IP $IP -Oid $oidName | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
+    # "6" {invoke-snmpwalk -IP $IP -Oid $oidName | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
+    # "8" {write-output "HUH? Does not compute... Coming Soon" | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
     } #finished executing menu options
 
 } until ($answer -eq 9) #User selected option 9 to exit.
