@@ -6,11 +6,6 @@ $oidName = "1.3.6.1.4.1.1347.40.10.1.1.5"
 $oidToner = "1.3.6.1.2.1.43.11.1.1.9.1.1"
 $oidLocation = "1.3.6.1.2.1.1.6"
 $oidPageCount = "1.3.6.1.4.1.1347.43.10.1.1.12.1"
-
-param([string]$ip="172.16.144.125")
-
-$oidToner = "1.3.6.1.2.1.43.11.1.1.9.1.1"
-
 function tonerLevel {
     param (
         $oidToner
@@ -21,9 +16,7 @@ function tonerLevel {
     return $tonerLevel
 }
 
-$output = tonerLevel($oidToner)
 
-Write-Host "The current toner level for the printer is $output%."
 
 do { #Input validation for IP
     Clear-Host
@@ -48,7 +41,7 @@ do { #Input validation for IP
     $ok = $IP -match $IPv4Regex
     if ( -not $ok) {
         write-host  -ForegroundColor Red "Invalid IP"
-        sleep 2
+        Start-Sleep 2
         write-host ""
     }
 } until ($ok) #verified IP input
@@ -82,7 +75,7 @@ do {
         #if the provided answer is not numeric 1-9 notify user and return to menu
         if ( -not $ok) {
             write-host  -ForegroundColor Red "Invalid selection"
-            sleep 2
+            Start-Sleep 2
             write-host ""
         }
     } until ($ok) #verified $answer
@@ -94,7 +87,7 @@ do {
     "3" {invoke-snmpwalk -IP $IP -OID $oidSerial | Out-File -FilePath "C:\Users\ryan_\Desktop\PrinterData-$IP.txt" -Append}
     "4" {invoke-snmpwalk -IP $IP -OID $oidName | Out-File -FilePath "C:\Users\ryan_\Desktop\PrinterData-$IP.txt" -Append}
     "5" {invoke-snmpwalk -IP $IP -OID $oidLocation | Out-File -FilePath "C:\Users\ryan_\Desktop\PrinterData-$IP.txt" -Append}
-    "6" {invoke-snmpwalk -IP $IP -OID $oidToner | Out-File -FilePath "C:\Users\ryan_\Desktop\PrinterData-$IP.txt" -Append}
+    "6" {$TonerPercent = tonerLevel($oidToner); Write-Output "The current toner level for the printer is $TonerPercent%." | Out-File -FilePath "C:\Users\ryan_\Desktop\PrinterData-$IP.txt" -Append}
     "7" {invoke-snmpwalk -IP $IP -OID $oidPageCount | Out-File -FilePath "C:\Users\ryan_\Desktop\PrinterData-$IP.txt" -Append}
     "8" {invoke-snmpwalk -IP $IP -OID $oidError | Out-File -FilePath "C:\Users\ryan_\Desktop\PrinterData-$IP.txt" -Append}
     } #finished executing menu options
