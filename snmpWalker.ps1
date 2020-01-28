@@ -6,17 +6,7 @@ $oidName = "1.3.6.1.4.1.1347.40.10.1.1.5"
 $oidToner = "1.3.6.1.2.1.43.11.1.1.9.1.1"
 $oidpagecount = "1.3.6.1.4.1.1347.43.10.1.1.12.1"
 
-function tonerLevel {
-    param (
-        $oidToner
-    )
-    $toner = Get-SnmpData -IP $ip -OID $oidToner
-    $tonerData = $toner."Data"
-    $tonerLevel = 100 * $tonerData/20000
-    return $tonerLevel
-}
 
-$output = tonerLevel($oidToner)
 
 
 do { #Input validation for IP
@@ -80,14 +70,26 @@ do {
             write-host ""
         }
     } until ($ok) #verified $answer
-        
+    
+    function tonerLevel {
+        param (
+            $oidToner
+        )
+        $toner = Get-SnmpData -IP $ip -OID $oidToner
+        $tonerData = $toner."Data"
+        $tonerLevel = 100 * $tonerData/20000
+        return $tonerLevel
+    }
+    
+    
+    
     #Compare $answer to the following cases and execute the associated command.
     switch -Regex ( $answer ) {
     "1" {invoke-snmpwalk -IP $IP -Oid $oidManufacturer | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
     "2" {invoke-snmpwalk -IP $IP -Oid $oidModel | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
     "3" {invoke-snmpwalk -IP $IP -Oid $oidSerial | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
     "4" {invoke-snmpwalk -IP $IP -Oid $oidName | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
-    "5" {Write-Host "The current toner level for the printer is $output%." | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
+    "5" {$output = tonerLevel($oidToner) ; Write-Output "The current toner level for the printer is $output%." | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
     "6" {invoke-snmpwalk -IP $IP -Oid $oidpagecount | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
     # "8" {write-output "HUH? Does not compute... Coming Soon" | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
     } #finished executing menu options
