@@ -3,8 +3,22 @@ $oidManufacturer = "1.3.6.1.2.1.1.1"
 $oidModel = "1.3.6.1.4.1.1347.43.5.1.1.36"
 $oidSerial = "1.3.6.1.4.1.1347.43.5.1.1.28"
 $oidName = "1.3.6.1.4.1.1347.40.10.1.1.5"
-$oidSomething = ""
+$oidLocation = "1.3.6.1.2.1.1.6"
 $oidToner = "1.3.6.1.2.1.43.11.1.1.9.1.1"
+$oidPages = ""
+
+
+function tonerLevel {
+    param (
+        $oidInk
+    )
+    $toner = Get-SnmpData -IP $ip -OID $oidInk Get-snmpdata
+    $tonerData = $toner."Data"
+    $tonerLevel = 100 * $tonerData/20000
+    return $tonerLevel
+}
+
+$output = tonerLevel($oidToner)
 
 do { #Input validation for IP
     Clear-Host
@@ -78,7 +92,7 @@ do {
     "4" {invoke-snmpwalk -IP $IP -OID $oidName | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
     "5" {invoke-snmpwalk -IP $IP -OID $oidLocation | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
     "6" {invoke-snmpwalk -IP $IP -OID $oidToner | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
-    "7" {write-output "Huh? What's a page count? Coming Soon" | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
+    "7" {invoke-snmpwalk -IP $IP -OID $oidPages | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
     "8" {write-output "HUH? Does not compute... Coming Soon" | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
     } #finished executing menu options
 
