@@ -18,7 +18,7 @@ function tonerLevel {
     return $tonerLevel
 }
 
-$output = tonerLevel($oidToner)
+
 
 do { #Input validation for IP
     Clear-Host
@@ -91,7 +91,7 @@ do {
     "3" {invoke-snmpwalk -IP $IP -OID $oidSerial | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
     "4" {invoke-snmpwalk -IP $IP -OID $oidName | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
     "5" {invoke-snmpwalk -IP $IP -OID $oidLocation | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
-    "6" {invoke-snmpwalk -IP $IP -OID $oidToner | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
+    "6" {$output = tonerLevel($oidToner); Write-Output $oidToner | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
     "7" {invoke-snmpwalk -IP $IP -OID $oidPages | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
     "8" {write-output "HUH? Does not compute... Coming Soon" | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
     } #finished executing menu options
