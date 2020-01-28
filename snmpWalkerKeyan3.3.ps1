@@ -110,7 +110,7 @@ do {
     "3" {invoke-snmpwalk -IP $IP -OID $oidSerial | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
     "4" {invoke-snmpwalk -IP $IP -OID $oidName | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
     "5" {invoke-snmpwalk -IP $IP -OID $oidPrinter | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
-    "6" {Write-Host "Toner ink is at $output%." | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
+    "6" {Write-Output "Toner ink is at $output%." | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
     "7" {invoke-snmpwalk -IP $IP -OID $oidLocation | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
     "8" {invoke-snmpwalk -IP $IP -OID $oidPages | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
     } #finished executing menu options
