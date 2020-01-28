@@ -3,11 +3,27 @@ $oidManufacturer = "1.3.6.1.2.1.1.1"
 $oidModel = "1.3.6.1.4.1.1347.43.5.1.1.36"
 $oidSerial = "1.3.6.1.4.1.1347.43.5.1.1.28"
 $oidName = "1.3.6.1.4.1.1347.40.10.1.1.5"
-$oidToner = "1.3.6.1.2.1.43.11.1.1.9.1"
+$oidToner = "1.3.6.1.2.1.43.11.1.1.9.1.1"
 $oidLocation = "1.3.6.1.2.1.1.6"
 $oidPageCount = "1.3.6.1.4.1.1347.43.10.1.1.12.1"
-#$oidError = 
 
+param([string]$ip="172.16.144.125")
+
+$oidToner = "1.3.6.1.2.1.43.11.1.1.9.1.1"
+
+function tonerLevel {
+    param (
+        $oidToner
+    )
+    $toner = Get-SnmpData -IP $ip -OID $oidToner
+    $tonerData = $toner."Data"
+    $tonerLevel = 100 * $tonerData/20000
+    return $tonerLevel
+}
+
+$output = tonerLevel($oidToner)
+
+Write-Host "The current toner level for the printer is $output%."
 
 do { #Input validation for IP
     Clear-Host
