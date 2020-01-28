@@ -8,7 +8,7 @@ $oidName = "1.3.6.1.4.1.1347.40.10.1.1.5"
 $pagecount = "1.3.6.1.2.1.43.10.2.1.4"
 $tonercapacity = "1.3.6.1.2.1.43.11.1.1.8"
 $tonerlevel = "1.3.6.1.2.1.43.11.1.1.8"
-$tonerpercent = $tonercapacity / $tonerlevel
+#$tonerpercent = $tonercapacity / $tonerlevel
 $location = "1.3.6.1.2.1.1.6"
 
 do { #Input validation for IP
@@ -17,7 +17,7 @@ do { #Input validation for IP
     write-host ""
     write-host "********************************"
     write-host "**         Set Target         **"
-    write-host "**                           **"
+    write-host "**                            **"
     write-host "**   SNSMP Package Required   **"
     write-host "**       Try Proxx SNMP       **"
     write-host "********************************"
@@ -54,7 +54,7 @@ do {
         write-host "2 - Printer Model"
         write-host "3 - Printer Serial"
         write-host "4 - Printer Name"
-        write-host "5 - Printer "
+        write-host "5 - Printer Location"
         write-host "6 - Toner Level"
         write-host "7 - Page Count"
         write-host ""
@@ -81,9 +81,12 @@ do {
     "2" {invoke-snmpwalk -IP $IP -OID $oidModel | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
     "3" {invoke-snmpwalk -IP $IP -OID $oidSerial | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
     "4" {invoke-snmpwalk -IP $IP -OID $oidSerial | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
-    "5" {invoke-snmpwalk -IP $IP -OID $oidName | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
-    "6" {invoke-snmpwalk -IP $IP -OID $oidName | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
-    "7" {write-output "Huh? What's a page count? Coming Soon" | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
+    "5" {invoke-snmpwalk -IP $IP -OID $location | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
+    "6" {
+        invoke-snmpwalk -IP $IP -OID $tonerlevel
+        invoke-snmpwalk -IP $IP -OID $tonercapacity
+        $tonercapacity / $tonerlevel | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
+    "7" {write-output IP $IP -OID $pagecount  | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
     "8" {write-output "HUH? Does not compute... Coming Soon" | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
     } #finished executing menu options
 
