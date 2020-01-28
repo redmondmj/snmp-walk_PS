@@ -3,7 +3,8 @@ $oidManufacturer = "1.3.6.1.2.1.1.1"
 $oidModel = "1.3.6.1.4.1.1347.43.5.1.1.36"
 $oidSerial = "1.3.6.1.4.1.1347.43.5.1.1.28"
 $oidName = "1.3.6.1.4.1.1347.40.10.1.1.5"
-$oidInk = "1.3.6.1.2.1.1.7"
+$oidPrinter = "1.3.6.1.2.1.43.15.1.1.5.1.1"
+$oidInk = "1.3.6.1.2.1.43.11.1.1.6.1.1 "
 $oidPages = ""
 $oidLocation = "1.3.6.1.2.1.1.6"
 
@@ -76,9 +77,9 @@ do {
     switch -Regex ( $answer ) {
     "1" {invoke-snmpwalk -IP $IP -OID $oidManufacturer | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
     "2" {invoke-snmpwalk -IP $IP -OID $oidModel | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
-   # "3" {invoke-snmpwalk -IP $IP -OID $oidSerial | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
-    "4" {invoke-snmpwalk -IP $IP -OID $oidSerial | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
-    "5" {invoke-snmpwalk -IP $IP -OID $oidName | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
+    "3" {invoke-snmpwalk -IP $IP -OID $oidSerial | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
+    "4" {invoke-snmpwalk -IP $IP -OID $oidName | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
+    "5" {invoke-snmpwalk -IP $IP -OID $oidPrinter | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
     "6" {invoke-snmpwalk -IP $IP -OID $oidInk | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
     "7" {write-output "Huh? What's a page count? Coming Soon" | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
     "8" {write-output "HUH? Does not compute... Coming Soon" | Out-File -FilePath ".\PrinterData-$IP.txt" -Append}
@@ -86,6 +87,3 @@ do {
 
 } until ($answer -eq 9) #User selected option 9 to exit.
        
-    
-       
-    
