@@ -5,3 +5,4 @@ $script = New-ScheduledTaskAction -Execute "Powershell.exe" -Argument $walk
 $trigger = New-ScheduledTaskTrigger -Daily 7pm
 
 Register-ScheduledTask -Action $script -Trigger $trigger -TaskName "WalkPrinter" -Description "SNMP walk on printer"
+Exit
