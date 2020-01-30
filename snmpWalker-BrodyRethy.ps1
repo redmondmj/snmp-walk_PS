@@ -17,8 +17,6 @@ function tonerLevel {
     return $tonerLevel
 }
 
-
-
 do { #Input validation for IP
     Clear-Host
     #draw header
